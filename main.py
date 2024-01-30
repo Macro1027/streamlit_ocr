@@ -3,7 +3,6 @@ import time
 import queue
 import threading
 import streamlit as st
-from profanity_check import predict
 
 from scripts.preprocess import preprocess_img
 from scripts.ocr import ocr_thread
@@ -42,7 +41,7 @@ def display_ocr_results(frame, text_queue, conf_thresh=50, text_placeholder=None
                 detected_text = d[i]['text'][j]
 
                 # Check confidence level and profanity of detected text
-                if int(d[i]['conf'][j]) > conf_thresh and not predict([detected_text]):
+                if int(d[i]['conf'][j]) > conf_thresh:
                     to_append.append(detected_text)
                     (x, y, w, h) = (d[i]['left'][j], d[i]['top'][j], d[i]['width'][j], d[i]['height'][j])
                     if x and y and w and h:
@@ -58,11 +57,6 @@ def main():
     # Initialise queues and start threads
     queues = initialize_queues()
     start_threads(queues)
-
-
-    # Initialise file
-    with open('test.txt', 'w') as f:
-        f.write('')
 
     # Create streamlit widgets
     st.title('Webcam Live Feed')

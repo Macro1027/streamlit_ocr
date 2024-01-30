@@ -119,9 +119,8 @@ def display_boxes(boxes, orig):
     cv2.waitKey(0)
 
 if __name__ == "__main__":
-    image_path = "test5.jpg"
+    image_path = "images/test5.jpg"
     image = cv2.imread(image_path)
-    # image = preprocess_img(image)
 
     boxes = detect_boxes(image)
     display_boxes(boxes, image)

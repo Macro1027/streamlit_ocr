@@ -25,7 +25,7 @@ def ocr_thread(frame_queue, text_queue):
 
             try:
                 cropped = frame[startY:endY, startX:endX]
-                text = image_to_data(cropped, config='--psm 8', output_type=Output.DICT)
+                text = image_to_data(cropped, output_type=Output.DICT)
                 for i in range(len(text['text'])):
                     text['left'][i] += startX
                     text['top'][i] += startY
